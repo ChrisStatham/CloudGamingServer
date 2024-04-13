@@ -1,5 +1,7 @@
 #cloud-config
 
+# Using https://github.com/TrueOsiris/docker-vrising since it appears to still be maintained. We might need to fork if its no longer maintained.
+
 users:
 - name: cloudservice
   uid: 2000
@@ -13,7 +15,7 @@ write_files:
     Description=Start a simple docker container
 
     [Service]
-    ExecStart=/usr/bin/docker run --rm -u 2000 -v /mnt/disks/games/vrising:/saves --name=mycloudservice mephi00/v-rising-wine 
+    ExecStart=/usr/bin/docker run --rm -p 9876:9876/udp -p 9877:9877/udp -u 2000 -v /mnt/disks/games/vrising:/saves --name=mycloudservice rueOsiris/docker-vrising
     ExecStop=/usr/bin/docker stop mycloudservice
     ExecStopPost=/usr/bin/docker rm mycloudservice
 
